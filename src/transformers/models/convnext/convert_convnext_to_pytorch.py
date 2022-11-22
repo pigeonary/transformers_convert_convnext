@@ -170,6 +170,14 @@ def convert_convnext_checkpoint(checkpoint_url, pytorch_dump_folder_path):
         expected_logits = torch.tensor([1.2963, 0.1227, 0.1723])
     elif checkpoint_url == "https://dl.fbaipublicfiles.com/convnext/convnext_xlarge_22k_224.pth":
         expected_logits = torch.tensor([1.7956, 0.8390, 0.2820])
+    elif checkpoint_url == "https://dl.fbaipublicfiles.com/convnext/convnext_tiny_22k_1k_224.pth":
+        expected_logits = torch.tensor([-0.8797, 1.4471, -0.5029])
+    elif checkpoint_url == "https://dl.fbaipublicfiles.com/convnext/convnext_tiny_22k_1k_384.pth":
+        expected_logits = torch.tensor([-0.4555, 0.6476, -0.1487])
+    elif checkpoint_url == "https://dl.fbaipublicfiles.com/convnext/convnext_small_22k_1k_224.pth":
+        expected_logits = torch.tensor([-0.5929, 0.7829, -0.1873])
+    elif checkpoint_url == "https://dl.fbaipublicfiles.com/convnext/convnext_small_22k_1k_384.pth":
+        expected_logits = torch.tensor([-0.2301, 0.2258, -0.3456])
     elif checkpoint_url == "https://dl.fbaipublicfiles.com/convnext/convnext_base_22k_1k_224.pth":
         expected_logits = torch.tensor([-0.2822, -0.0502, -0.0878])
     elif checkpoint_url == "https://dl.fbaipublicfiles.com/convnext/convnext_base_22k_1k_384.pth":
@@ -216,8 +224,9 @@ def convert_convnext_checkpoint(checkpoint_url, pytorch_dump_folder_path):
         model_name += "-22k-1k"
 
     model.push_to_hub(
-        repo_path_or_name=Path(pytorch_dump_folder_path, model_name),
-        organization="nielsr",
+        repo_id=Path("alexliao", model_name).__str__(),
+        private=True,
+        use_auth_token="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",
         commit_message="Add model",
     )
 
